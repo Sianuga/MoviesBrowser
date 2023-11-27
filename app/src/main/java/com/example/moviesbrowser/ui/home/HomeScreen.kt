@@ -1,7 +1,7 @@
-// ui/MovieListScreen.kt
 package com.example.moviebrowser.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,12 +10,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.moviesbrowser.core.AppRouteNames
 import com.example.moviesbrowser.ui.home.data.Movie
 import com.example.moviesbrowser.ui.home.data.movies
 
@@ -26,7 +29,7 @@ fun HomeScreen(
     LazyColumn {
         items(movies) { movie ->
             MovieListItem(movie = movie, onMovieClick = {
-                navController.navigate("movie/${movie.id}")
+                navController.navigate("${AppRouteNames.Detail}/${movie.id}")
             })
         }
     }
@@ -38,13 +41,18 @@ fun MovieListItem(movie: Movie, onMovieClick: (Movie) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onMovieClick(movie) }
-            .padding(16.dp)
+            .padding(10.dp,8.dp,10.dp, 24.dp)
+            .height(130.dp)
+            ,
+        verticalAlignment = Alignment.CenterVertically,
+
+
     ) {
         Image(
-            painter = painterResource(id = movie.scenesImages.first()),
+            painter = painterResource(id = movie.thumbnail),
             contentDescription = null,
             modifier = Modifier
-                .size(72.dp)
+                .size(100.dp)
                 .clip(RoundedCornerShape(8.dp)),
             contentScale = ContentScale.Crop
         )
