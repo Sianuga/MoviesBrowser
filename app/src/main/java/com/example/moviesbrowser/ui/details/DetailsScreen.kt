@@ -80,7 +80,7 @@ fun DetailScreen(navController: NavController, movie: Movie) {
         }
         Spacer(modifier = Modifier.height(32.dp))
 
-        
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()

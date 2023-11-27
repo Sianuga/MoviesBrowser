@@ -41,7 +41,7 @@ fun MovieListItem(movie: Movie, onMovieClick: (Movie) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onMovieClick(movie) }
-            .padding(10.dp,8.dp,10.dp, 24.dp)
+            .padding(20.dp,8.dp,10.dp, 32.dp)
             .height(130.dp)
             ,
         verticalAlignment = Alignment.CenterVertically,
