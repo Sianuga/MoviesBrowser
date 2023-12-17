@@ -1,5 +1,7 @@
 package com.example.moviesbrowser.ui.details
 
+import android.media.browse.MediaBrowser
+import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.scrollable
@@ -26,23 +28,36 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import androidx.navigation.NavController
 import com.example.moviesbrowser.ui.details.data.Actor
 import com.example.moviesbrowser.ui.home.data.Movie
 
+
+
 @Composable
 fun DetailScreen(navController: NavController, movie: Movie) {
+
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
+
     ) {
         Row(
             modifier = Modifier
@@ -79,6 +94,36 @@ fun DetailScreen(navController: NavController, movie: Movie) {
 
         }
         Spacer(modifier = Modifier.height(32.dp))
+
+        //Media player in carousel here
+        val url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        val exoPlayer = ExoPlayer.Builder(context).build()
+        val mediaItem = MediaItem.fromUri(Uri.parse(url))
+        exoPlayer.setMediaItem(mediaItem)
+
+
+        val playerView = remember { PlayerView(context) }
+
+
+        DisposableEffect(AndroidView(factory = {playerView}, modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+
+        )){
+
+            val exoPlayer = ExoPlayer.Builder(context).build()
+            val mediaItem = MediaItem.fromUri(Uri.parse(url))
+            exoPlayer.setMediaItem(mediaItem)
+            playerView.player = exoPlayer
+
+            exoPlayer.prepare()
+            exoPlayer.playWhenReady= false
+
+            onDispose {
+                exoPlayer.release()
+
+            }
+        }
 
 
         Row(
