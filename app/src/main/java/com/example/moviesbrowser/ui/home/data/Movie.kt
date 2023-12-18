@@ -10,7 +10,8 @@ data class Movie (
     val thumbnail: Int,
     val description: String = "",
     val scenesImages: List<Int>,
-    val actorsList: List<Actor>
+    val actorsList: List<Actor>,
+    val videosList: List<Int>
 )
 
 val movies = listOf(
@@ -33,6 +34,10 @@ val movies = listOf(
             actors[14],
             actors[15]
         ),
+
+        videosList = listOf(
+            R.raw.druk_movie1
+        ),
     ),
     Movie(
         id = 2,
@@ -50,6 +55,10 @@ val movies = listOf(
             actors[9],
             actors[10],
             actors[11]
+        ),
+        videosList = listOf(
+            R.raw.midsommar1,
+            R.raw.midsommar2,
         ),
     ),
 
@@ -70,8 +79,11 @@ val movies = listOf(
             actors[1],
             actors[2],
             actors[3]
-        )
+        ),
 
+        videosList = listOf(
+            R.raw.joker1
+        ),
 
     ),
     Movie(
@@ -92,6 +104,11 @@ val movies = listOf(
             actors[6],
             actors[7]
         ),
+
+        videosList = listOf(
+            R.raw.american_psycho1,
+
+        ),
     ),
     Movie(
         id = 5,
@@ -109,6 +126,11 @@ val movies = listOf(
             actors[17],
             actors[18],
             actors[19]
+        ),
+
+        videosList = listOf(
+            R.raw.avengers1,
+            R.raw.avengers2,
         ),
     ),
 

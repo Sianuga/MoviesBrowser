@@ -43,8 +43,12 @@ import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import androidx.navigation.NavController
+import com.example.moviesbrowser.R
 import com.example.moviesbrowser.ui.details.data.Actor
 import com.example.moviesbrowser.ui.home.data.Movie
+
+
+
 
 
 
@@ -95,11 +99,10 @@ fun DetailScreen(navController: NavController, movie: Movie) {
         }
         Spacer(modifier = Modifier.height(32.dp))
 
-        //Media player in carousel here
-        val url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-        val exoPlayer = ExoPlayer.Builder(context).build()
-        val mediaItem = MediaItem.fromUri(Uri.parse(url))
-        exoPlayer.setMediaItem(mediaItem)
+
+
+
+
 
 
         val playerView = remember { PlayerView(context) }
@@ -111,9 +114,17 @@ fun DetailScreen(navController: NavController, movie: Movie) {
 
         )){
 
+
             val exoPlayer = ExoPlayer.Builder(context).build()
-            val mediaItem = MediaItem.fromUri(Uri.parse(url))
-            exoPlayer.setMediaItem(mediaItem)
+
+            for (video in movie.videosList)
+            {
+                val url = "rawresource://${context.packageName}/${video}"
+                val mediaItem = MediaItem.fromUri(Uri.parse(url))
+                exoPlayer.addMediaItem(mediaItem)
+            }
+
+
             playerView.player = exoPlayer
 
             exoPlayer.prepare()
@@ -124,6 +135,8 @@ fun DetailScreen(navController: NavController, movie: Movie) {
 
             }
         }
+
+    
 
 
         Row(
